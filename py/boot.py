@@ -23,7 +23,7 @@ def connect_mqtt():
 
     :return: MQTT client class
     :rtype: MQTTClient
-    """    
+    """
     global client_id, mqtt_server
 
     print(f'id:{client_id}, mqtt:{mqtt_server}')
@@ -37,7 +37,7 @@ def connect_mqtt():
 
 def restart_and_reconnect():
     """Callback used when connection to MQTT broker fails
-    """    
+    """
     print('Failed to connect to MQTT broker. Reconnecting...')
     time.sleep(10)
     machine.reset()
@@ -58,10 +58,6 @@ TOPIC = b'rp2040/mcp9700/temperature'
 client_id = ubinascii.hexlify(machine.unique_id())
 mqtt_server = secrets.MQTT
 
-# Define MQTT control
-last_message = 0
-message_interval = 5
-
 # Create MQTT client connection
 try:
   client = connect_mqtt()
@@ -80,9 +76,7 @@ while True:
     temp = sum/10.0
     print(temp)
 
-    if (time.time() - last_message) > message_interval:
-        client.publish(TOPIC, (b'{0:3.1f},'.format(temp)))
-        last_message = time.time()
+    client.publish(TOPIC, (b'{0:3.1f},'.format(temp)))
 
     time.sleep(10)
 
