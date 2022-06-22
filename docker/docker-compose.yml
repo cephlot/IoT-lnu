@@ -11,6 +11,8 @@ services:
             - "1883:1883"
         volumes:
             - ./:/mosquitto/:rw
+        depends_on:
+            - influxdb
         networks:
             - tig-net
 
