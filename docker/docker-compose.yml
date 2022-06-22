@@ -1,8 +1,5 @@
-version: '3.9'
+version: '3.3'
 
-networks: 
-    tig-net:
-        driver: bridge
 
 services:
     mqtt:
@@ -10,4 +7,4 @@ services:
         ports:
             - "1883:1883"
         volumes:
-            - mosquitto/:/mosquitto/:rw
+            - ./:/mosquitto/:rw
