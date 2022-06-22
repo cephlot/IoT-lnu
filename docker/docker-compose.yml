@@ -5,7 +5,7 @@ networks:
         driver: bridge
 
 services:
-    mqtt:
+    mosquitto:
         image: eclipse-mosquitto:latest
         ports:
             - "1883:1883"
@@ -47,6 +47,7 @@ services:
         image: telegraf:latest
         depends_on:
             - "influxdb"
+            - "mosquitto"
         environment:
             HOST_NAME: "telegraf"
             INFLUXDB_HOST: "influxdb"
