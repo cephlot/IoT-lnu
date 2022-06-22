@@ -53,7 +53,7 @@ CONV = 3.3/65535.0
 TOPIC = b'rp2040/mcp9700/temperature'
 
 # Define MQTT server and id
-client_id = 'rp2040'
+client_id = ubinascii.hexlify(machine.unique_id())
 mqtt_server = secrets.MQTT
 
 # Create MQTT client connection
@@ -74,7 +74,11 @@ while True:
     temp = sum/10.0
     print(temp)
 
-    client.publish(TOPIC, (b'{0:3.1f},'.format(temp)))
+    try:
+        client.publish(TOPIC, (b'{0:3.1f}'.format(temp)))
+    except OSError as e:
+        print('Error thrown')
+        restart_and_reconnect()
 
     time.sleep(10)
 
