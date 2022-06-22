@@ -1,0 +1,13 @@
+version: '3.9'
+
+networks: 
+    tig-net:
+        driver: bridge
+
+services:
+    mqtt:
+        image: eclipse-mosquitto:latest
+        ports:
+            - "1883:1883"
+        volumes:
+            - mosquitto/:/mosquitto/:rw
