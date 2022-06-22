@@ -26,8 +26,6 @@ def connect_mqtt():
     """
     global client_id, mqtt_server
 
-    print(f'id:{client_id}, mqtt:{mqtt_server}')
-
     client = MQTTClient(client_id, mqtt_server, port=1883, keepalive=30)
     client.connect()
 
@@ -55,7 +53,7 @@ CONV = 3.3/65535.0
 TOPIC = b'rp2040/mcp9700/temperature'
 
 # Define MQTT server and id
-client_id = ubinascii.hexlify(machine.unique_id())
+client_id = 'rp2040'
 mqtt_server = secrets.MQTT
 
 # Create MQTT client connection
